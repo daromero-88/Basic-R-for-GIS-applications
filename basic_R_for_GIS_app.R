@@ -25,6 +25,15 @@
  #' How do I do a loop in R? 
  #' https://stackoverflow.com/questions/50252721/how-do-i-do-a-loop-using-r
  #' 
+ #' Github
+ #' https://github.com/
+ #' 
+ #' Github desktop 
+ #' https://desktop.github.com/
+ #' 
+ #' Code repository: 
+ #' 
+ #' 
  #' Endless other resources... 
  #' 
   
@@ -45,7 +54,7 @@ a = c(1, 2, 3)
 class(a) 
 #numeric vector
 
-b = b #error, no character defined
+b = tttt #error, no character defined
 
 b = 'b' #characters go with quotes
 
@@ -170,6 +179,14 @@ pale1 = colorRampPalette(col1)
 
 plot (j, main = 'Example', pch = 15, cex = 0.9, col = pale1(5))
 
+#####SUMMARY: 1 and 2#####
+
+#' R and R studio have a large community of support on internet and we must take the advantage
+#' It is a language and as so, you need to learn its syntax and vocubulary 
+#' There are multiple objects in R, usually the objects determine what is happening 
+#' Functions are embebed codes that allows the user to automatize operations 
+#' Dataframes and matrices are complex objects that allow the manipulation of data 
+#' 
 
 #3. GIS objects I: Polygons -----------------------------------
 
@@ -177,6 +194,10 @@ plot (j, main = 'Example', pch = 15, cex = 0.9, col = pale1(5))
 
 install.packages('raster')
 install.packages('sp')
+install.packages('maptools')
+
+#pcks = c('raster', 'sp', 'rgeos', 'rgdal', 'maptools', 'mapdata')
+#install.packages(pcks)
 
 #...etc
 
@@ -296,5 +317,14 @@ points (pt_random, pch= 3, cex = 0.7, col= 'red')
 write.csv (pt_random@coords, 'test1.csv', row.names = F)
 
 
-#NEX EXCERCISES ---------------------------------------
+#NEXT EXCERCISES ---------------------------------------
+
+#4. GIS objects II: Rasters -----------------------------------
+
+#what is a raster
+#creating rasters 
+#exporting rasters
+#importing rasters
+
+#raster stacks
 
