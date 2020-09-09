@@ -56,7 +56,7 @@ class(a)
 
 b = tttt #error, no character defined
 
-b = 'b' #characters go with quotes
+b = 'Hello World' #characters go with quotes
 
 b = 'a', 'b', 'c' #error no complex number
 
@@ -66,7 +66,8 @@ class (b)
 #character vector 
 
 c = c (1, 'b', 'c')
-class (a)
+class (c)
+
 #character, in this case, 1 is an element 
 
 list1 = list (a, b, c)
@@ -76,9 +77,11 @@ class (list1)
 #Subsetting: 
 cc = c(2000:4000)
 
+
 cc[1]
 cc[2]
-cc[10:20]
+cc[10:20] #subsetting the numeric vector cc to obtain the elementes from 10 to 20
+
 
 cc[which (cc== 2090)]
 
