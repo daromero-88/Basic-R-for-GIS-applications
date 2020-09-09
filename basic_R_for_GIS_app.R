@@ -4,17 +4,17 @@
   #'  Author: Daniel Romero-Alvarez
   #                
   #'  Script to:
-  #'  1. Explore the basics of R as a programming language 
-  #'  2.
-  #'  3. 
-  #'  4. 
-  #'  5. 
-  #'  
+  #'  0. Resources 
+  #'  1. Explore the basics of R as a programming language
+  #'  2. Anatomy of a function
+  #'  3. GIS objects I: Polygons 
+  #'  4. GIS objects II: Points
+  #'  5. GIS objects III: Rasters
   #'  
 
 --------------------------------------------------------
   
-# 0 RESOURCES --------------------------------------------
+# 0 Resources --------------------------------------------
  #' Mike Marin tutorials: 
  #' https://www.youtube.com/channel/UCaNIxVagLhqupvUiDK01Mgg
  #' 
@@ -142,6 +142,9 @@ h+i
 
 summary (e)
 
+setwd ('/Users/daniel/Documents/GitHub/Basic-R-for-GIS-applications')
+getwd
+
 #2. Anatomy of a function -----------------------------------
 
 #function sample
@@ -168,13 +171,12 @@ pale1 = colorRampPalette(col1)
 plot (j, main = 'Example', pch = 15, cex = 0.9, col = pale1(5))
 
 
-#3. GIS OBJECTS -----------------------------------
+#3. GIS objects I: Polygons -----------------------------------
 
 #3.1. Packages and libraries---------------------------------------------
 
 install.packages('raster')
-
-#install.packages('sp')
+install.packages('sp')
 
 #...etc
 
@@ -190,6 +192,15 @@ library(mapdata)
 
 data("wrld_simpl", package = "maptools")
 plot (wrld_simpl)
+
+
+class (wrld_simpl) #SpatialPolygonsDataFrame
+
+
+zoom(wrld_simpl, ext=drawExtent(), new=TRUE, useRaster=TRUE) #zooming on this raster
+
+
+crs(wrld_simpl)
 
 WGS84 = crs(wrld_simpl) # geographic projection
 e = drawExtent() #manually selection a portion of the map
@@ -212,16 +223,78 @@ class (wrld_simpl@data)
 
 head (wrld_simpl@data)
 
+#subsetting data- Dataframes in action: 
 
-#STUFF TO APPLY ---------------------------------------
-#SUBSETTING DATA BY NAME!!! 
+wrld_simpl@data$NAME
 
-#TO DO: 
+#function subset: 
+count1 = subset (wrld_simpl, NAME == 'Ecuador')
+plot (count1)
 
-# SUBSEETING DATA IN THE DATAFRAME MATRIX PORTIONS!!!!
-# ADD RANDOM POINTS 
-#WRITE RANDOM POINTS 
-#WRITE SUBSETTED MAP 
+count2 = subset (wrld_simpl, NAME == 'United States')
+plot (count2)
+
+#subset by expressions: 
+
+names (wrld_simpl@data)
+
+plot (wrld_simpl@data$AREA)
+
+exp1 = subset (wrld_simpl, AREA>500000)
+plot (exp1)
+plot (sort (wrld_simpl@data$POP2005))
+
+exp2 = subset (wrld_simpl, POP2005>1.1e+09)
+plot (exp2)
+
+#write shapefile: 
+writeOGR(exp2, layer= 'exp2', dsn = 'shapes1', driver = 'ESRI Shapefile')
 
 
-#4. READ DATA
+#reading shapefiles: 
+
+download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip", 
+              destfile = 'countries.zip') #download the zip file 
+
+unzip(zipfile = "countries.zip", 
+      exdir = './countries_test') #unzipping the file 
+
+world2 = readOGR ('./countries_test/ne_10m_admin_0_countries.shp') #reading the file 
+
+class (world2)
+names (world2@data)
+
+View (world2@data)
+
+unique(world2$ADMIN) #information on the unique values of a column
+
+am = subset (world2, CONTINENT =='South America' 
+              | CONTINENT == 'North America')
+plot (am)
+
+zoom(am, ext=drawExtent(), new=TRUE, useRaster=TRUE) #zooming on this raster
+
+
+br1 = subset (world2, ADMIN == 'Brazil')
+plot (br1)
+
+#write shapefile: 
+writeOGR(br1, layer= 'br1', dsn = 'shapes2', driver = 'ESRI Shapefile')
+
+#3. GIS objects II: Points -----------------------------------
+
+#points in a map: 
+
+pt_random = spsample (br1, n = 100, 'random')
+
+class(pt_random)
+
+plot (br1)
+points (pt_random, pch= 3, cex = 0.7, col= 'red')
+
+#writing points 
+write.csv (pt_random@coords, 'test1.csv', row.names = F)
+
+
+#NEX EXCERCISES ---------------------------------------
+
