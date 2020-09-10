@@ -373,7 +373,7 @@ plot (br1, col = 'grey', main = 'Brazil from Natural Earth')
 writeOGR(br1, layer= 'br1', dsn = 'shapes3', driver = 'ESRI Shapefile') #write the new country
 
 
-#3. GIS objects II: Points -----------------------------------
+#4. GIS objects II: Points -----------------------------------
 
 #points in a map: 
 
@@ -395,7 +395,7 @@ write.csv (pt_random@coords, 'test1.csv', row.names = F) #writing the points as 
 #' decimal cooordinates 
 #' 
 
-#4. GIS objects III: Rasters -----------------------------------
+#5. GIS objects III: Rasters -----------------------------------
 
 #what is a raster
 #creating rasters 
